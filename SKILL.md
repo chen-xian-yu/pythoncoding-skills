@@ -283,11 +283,16 @@ def find_user_email(user_id: str) -> str | None:
 ### 通用注释
 注释解释原因、约束和非显然选择，可调参数要说明含义。
 每一行代码都要在右端进行注释，或者在上方进行注释一整个部分代码。
+注释中出现不常见英文单词、专业术语或多个英文单词组成的概念时，应在英文后用括号补充简短中文解释；常见库名、变量名、函数名不用强行翻译。
 
 ```python
 # 通过：说明参数的含义，在右端进行注释
 batch_size = min(len(items), 100) # 第三方接口最多允许一次提交 100 条，超过会返回 413
 batch_size = 100  # 设置批次大小
+
+# 通过：英文术语后补充中文解释
+# DeepONet query grid（DeepONet 在预测输出函数时，要查询的坐标点集合）
+query_grid = build_query_grid(x_min, x_max, num_points)
 
 # 通过：在上方进行注释一整个部分代码作用
 # 左端 Neumann：第一行第二列与其他不同为-2*F
@@ -296,6 +301,10 @@ A[0, 1] = -2*F
 
 # 不通过：复述代码
 batch_size = 100 # 把 batch_size 设置为 100
+
+# 不通过：复杂英文术语没有中文解释
+# DeepONet query grid
+query_grid = build_query_grid(x_min, x_max, num_points)
 ```
 
 ### 函数注释
