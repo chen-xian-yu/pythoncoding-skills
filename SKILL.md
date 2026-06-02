@@ -307,6 +307,45 @@ batch_size = 100 # 把 batch_size 设置为 100
 query_grid = build_query_grid(x_min, x_max, num_points)
 ```
 
+### 打印与实验输出
+
+直接 `print`、日志或实验结果输出中出现英文缩写、数学术语、论文变量名或多个英文单词组成的指标名时，保留英文 key，但必须用第二列给出简短中文含义。不要只裸输出 `res_l2`、`res_linf`、`kappa_min` 这类英文术语。
+
+```python
+# 通过：英文 key、中文含义、数值分列展示
+metric_labels = {
+    "res_l2": "残差 L2 范数",
+    "res_linf": "残差 L∞ 范数",
+    "kappa_min": "kappa 最小值",
+    "kappa_max": "kappa 最大值",
+}
+
+metrics = {
+    "res_l2": res_l2,
+    "res_linf": res_linf,
+    "kappa_min": kappa_min,
+    "kappa_max": kappa_max,
+}
+
+print("[kappa]")
+for key, value in metrics.items():
+    print(f"  {key:<12} {metric_labels[key]:<14} {value: .6e}")
+
+# 推荐输出形式：
+# [kappa]
+#   res_l2       残差 L2 范数       5.319797e-04
+#   res_linf     残差 L∞ 范数       4.561114e-03
+#   kappa_min    kappa 最小值      -1.669906e+01
+#   kappa_max    kappa 最大值       1.500000e+00
+
+# 不通过：只有英文 key，读者需要猜含义
+print("[kappa]")
+print(f"  res_l2: {res_l2:.6e}")
+print(f"  res_linf: {res_linf:.6e}")
+print(f"  kappa_min: {kappa_min:.6e}")
+print(f"  kappa_max: {kappa_max:.6e}")
+```
+
 ### 函数注释
 公共函数、复杂函数和对外 API 建议写 docstring，说明参数、返回值、异常和使用示例。
 
